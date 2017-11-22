@@ -6,21 +6,21 @@
 #include "a_Chainbar.h"
 #include "a_MoGo.h"
 
-Robot Robot;
-Controller Controller(&Robot.Usb);
-Drive Drive(&Robot);
-SecondLift SecondLift(&Robot);
-Chainbar Chainbar(&Robot);
-MoGo MoGo(&Robot);
+Robot robot;
+Controller controller(&robot.Usb);
+Drive drive(&robot);
+SecondLift secondLift(&robot);
+Chainbar chainbar(&robot);
+MoGo moGo(&robot);
 
 SimpleTimer timer;
 
 void setup()
 {
 
-	Robot.init();
-	Drive.init();
-	SecondLift.init();
+	robot.init();
+	drive.init();
+	secondLift.init();
 
 	timer.setInterval(1, taskController);
 
@@ -35,43 +35,40 @@ void loop()
 
 void taskController()
 {
-	Robot.TaskUSB();
+	robot.TaskUSB();
 }
 
 
 void runRobot()
 {
-	Robot.Read();
+	robot.Read();
 
-	Controller.Task();
+	controller.Task();
 
 	MapRobot();
 
-	Drive.Task();
-	SecondLift.Task();
+	drive.Task();
+	secondLift.Task();
 
-	Robot.Write();
+	robot.Write();
 
 }
 
 void MapRobot()
 {
-	Drive.LeftControllerSpeedY = Controller.LeftJoystickY;
-	Drive.LeftControllerSpeedX = Controller.LeftJoystickX;
-	Drive.RightControllerSpeedY = Controller.RightJoystickY;
-	Drive.RightControllerSpeedX = Controller.RightJoystickX;
-	Drive.DPad = Controller.DPadLeftRight;
+	drive.LeftControllerSpeedY = controller.LeftJoystickY;
+	drive.LeftControllerSpeedX = controller.LeftJoystickX;
+	drive.RightControllerSpeedY = controller.RightJoystickY;
+	drive.RightControllerSpeedX = controller.RightJoystickX;
+	drive.DPad = controller.DPadLeftRight;
 
-	MoGo.DPad = Controller.DPadLeftRight;
-	MoGo.A = Controller.APress;
-	MoGo.B = Controller.BPress;
+	moGo.DPad = controller.DPadLeftRight;
+	moGo.A = controller.APress;
+	moGo.B = controller.BPress;
 
-	SecondLift.TriggerAggregate = Controller.TriggerAggregate;
-	SecondLift.HatButton = Controller.XPress;
+	secondLift.TriggerAggregate = controller.TriggerAggregate;
+	secondLift.HatOpen = controller.XPress;
 
-	Chainbar.DPadLeftRight = Controller.DPadLeftRight;
-	Chainbar.HatButton = Controller.XPress;
-
-
-
+	chainbar.DPadLeftRight = controller.DPadLeftRight;
+	chainbar.HatButton = controller.XPress;
 }

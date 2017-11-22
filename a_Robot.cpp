@@ -17,27 +17,27 @@ Robot::Robot()
 
 void Robot::init() 
 {
-	maestroSerial.begin(9600);
+	//maestroSerial.begin(9600);
 
 
-	maestro.setAcceleration(0, 10);
-	maestro.setSpeed(0, 10);
+	//maestro.setAcceleration(0, 10);
+	//maestro.setSpeed(0, 10);
 
-	maestro.setAcceleration(1, 10);
-	maestro.setSpeed(1, 10);
+	//maestro.setAcceleration(1, 10);
+	//maestro.setSpeed(1, 10);
 
-	maestro.setAcceleration(2, 10);
-	maestro.setSpeed(2, 10);
+	//maestro.setAcceleration(2, 10);
+	//maestro.setSpeed(2, 10);
 
-	maestro.setTarget(1, ChainbarY);
-	maestro.setTarget(0, ChainbarX);
-	maestro.setTarget(2, LiftY);
+	//maestro.setTarget(1, ChainbarY);
+	//maestro.setTarget(0, ChainbarX);
+	//maestro.setTarget(2, LiftY);
 
-	delay(2000);
+	//delay(2000);
 
-	maestro.setSpeed(0, 0);
-	maestro.setSpeed(1, 0);
-	maestro.setSpeed(2, 0);
+	//maestro.setSpeed(0, 0);
+	//maestro.setSpeed(1, 0);
+	//maestro.setSpeed(2, 0);
 
 
 }
@@ -112,12 +112,12 @@ void Robot::Write()
 	}
 
 
-	maestro.setTarget(1, ChainbarY);
-	maestro.setTarget(0, ChainbarX);
-	maestro.setTarget(2, LiftY);
+	//maestro.setTarget(1, ChainbarY);
+	//maestro.setTarget(0, ChainbarX);
+	//maestro.setTarget(2, LiftY);
 
-	maestro.setTarget(3, ChainbarHat);
-	maestro.setTarget(4, LiftHats);
+	//maestro.setTarget(3, ChainbarHat);
+	//maestro.setTarget(4, LiftHats);
 
 
 	
