@@ -80,6 +80,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="a_Drive.h" />
     <ClInclude Include="__vm\.C2525_2018.vsarduino.h" />
   </ItemGroup>
   <PropertyGroup>

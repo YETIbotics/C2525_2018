@@ -1,0 +1,164 @@
+Systems
+
+Drive-
+	Sensors
+		EncoderLeft
+		EncoderRight
+	Basic Commands
+		Left(Speed)
+		Right(Speed)
+MoGo-
+	Sensors
+		LimitSwitchOut
+		LimitSwitchIn
+	Basic Commands
+		Move(Speed)
+
+Chainbar-
+	Constants
+		LeftGrabPos
+		RightGrabPos
+		ForwardGrabPos
+		LeftStandbyPos
+		RightStandbyPos
+		ForwardStandbyPos
+
+		LeftRightTT
+		ForwardTT
+	Bools
+		LeftRight
+	Basic Commands
+		Rotate (Deg)
+		Swing (Deg)
+		Release()
+
+Secondary Lift-
+	Notes
+		Hat 1 will be defined as the hat that moves up when a positive value is sent to the lift motor.
+	Constants
+		Hat1OverReceiver
+		Hat2OverReceiver
+		Hat1OverMoGo
+		Hat2OverMoGo
+		Hat1OverStatGoal
+		Hat2OverStatGoal
+	Variables
+		HatInUse
+		Hat1Up
+		Hat1Down
+		Hat1Receiver
+		Hat2Receiver
+	Sensors
+		LiftEncoder
+	Basic Commands
+		Rotate(Deg)
+		Lift(Speed)
+		Release()
+
+-------------------
+Commands
+
+MoGo-
+	Extend()
+		MogGo.Move(255)
+
+	Retract()
+		MogGo.Move(-255)
+
+	FullyExtend()
+		if (!LimitSwitchOut)
+			Extend()
+
+	FullyRetract()
+		if (!LimitSwitchIn)
+			Retract()
+
+
+Chainbar-
+	GrabLeft()
+		if (!LeftRight)
+			TurnToSide()
+		Swing(LeftGrabPos)
+
+	GrabRight()
+		if (!LeftRight)
+			TurnToSide()
+		Swing(RightGrabPos)
+
+	GrabForward()
+		if (LeftRight)
+			TurnForward()
+		Swing(ForwardGrabPos)
+
+	StandbyLeft()
+		if (!LeftRight)
+			TurnToSide()
+		Swing(LeftStandbyPos)
+
+	StandbyRight()
+		if (!LeftRight)
+			TurnToSide()
+		Swing(RightStandbyPos)
+
+	StandbyForward()
+		if (LeftRight)
+			TurnToFront()
+		Swing(ForwardStandbyPos)
+
+	TurnToFront()
+		Rotate(ForwardTT)
+
+	TurnToSide()
+		Rotate(LeftRightTT)
+
+Secondary Lift-
+	FindHat1Up()
+		var prevEncVal = 100000
+		var curEncVal = 0
+		while(!(curEncVal <= prevEncVal + 5 && curEncVal >= prevEncVal - 5))
+			MoveUp()
+			prevEncVal = curEncVal
+			curEncVal = read(LiftEncoder)
+		Stop()
+		return curEncVal
+
+	FindHat1Down()
+		var prevEncVal = 100000
+		var curEncVal = 0
+		while(!(curEncVal <= prevEncVal + 5 && curEncVal >= prevEncVal - 5))
+			MoveDown()
+			prevEncVal = curEncVal
+			curEncVal = read(LiftEncoder)
+		Stop()
+		return curEncVal
+
+	RotateOverReceiver()
+		if (HatInUse == 1)
+			Rotate(Hat1OverReceiver)
+		else
+			Rotate(Hat2OverReceiver)
+
+	RotateOverMoGo()
+		if (HatInUse == 1)
+			Rotate(Hat1OverMoGo)
+		else
+			Rotate(Hat2OverMoGo)
+		
+	RotateOverStatGoal()
+		if (HatInUse == 1)
+			Rotate(Hat1OverStatGoal)
+		else
+			Rotate(Hat2OverStatGoal)
+
+	MoveUp()
+		Lift(255)
+
+	MoveDown()
+		Lift(-255)
+
+	Stop()
+		Lift(0)
+
+	GrabFromReceiver()
+	PutOnMogo()
+	TransferToStatGoal()
