@@ -52,14 +52,14 @@ void Robot::TaskUSB()
 
 void Robot::OpenHats()
 {
-	
+	ChainbarHat = servoMax * 3 / 4;
+	LiftHats = servoMax * 3 / 4;
+	HatTimer = 50;
 }
 
 void Robot::Read() 
 {
-	ChainbarHat = servoMax * 3 / 4;
-	LiftHats = servoMax * 3 / 4;
-	HatTimer = 50;
+	
 }
 
 void Robot::Write() 

@@ -11,18 +11,28 @@ void SecondLift::init()
 	LiftLimit = 0.5;
 }
 
+void SecondLift::Rotate(int SetPoint)
+{
+	robot->LiftY = SetPoint;
+}
+
+void SecondLift::Lift(float Speed)
+{
+	robot->SecondLiftSpeed = Speed;
+}
+
 void SecondLift::Task()
 {
 
 	if (A)
-		robot->SecondLiftSpeed = 400;
+		Lift(400);
 	if (B)
-		robot->SecondLiftSpeed = -400 * LiftLimit;
+		Lift(-400 * LiftLimit);
 
 	if (LR1 == 1)
-		robot->LiftY = LiftSetPointMoGo;
+		Rotate(LiftSetPointMoGo);
 	else if (LR1 == -1)
-		robot->LiftY = LiftSetPointReceiver;
+		Rotate(LiftSetPointReceiver);
 	
 }
 

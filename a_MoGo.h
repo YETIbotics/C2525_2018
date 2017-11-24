@@ -13,10 +13,10 @@ public:
 	void Task();
 	void init();
 
-	float speed = 0;
-
 	int TriggerAggregate;
 	int RL1;
+
+	void Move(float Speed);
 
 private:
 	Robot *robot;

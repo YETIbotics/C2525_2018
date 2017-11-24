@@ -5,8 +5,8 @@ Drive-
 		EncoderLeft
 		EncoderRight
 	Basic Commands
-		Left(Speed)
-		Right(Speed)
+		DriveLeft(Speed)
+		DriveRight(Speed)
 MoGo-
 	Sensors
 		LimitSwitchOut
@@ -28,9 +28,9 @@ Chainbar-
 	Bools
 		LeftRight
 	Basic Commands
-		Rotate (Deg)
-		Swing (Deg)
-		Release()
+		Rotate (SetPoint)
+		Swing (SetPoint)
+		HatRelease()
 
 Secondary Lift-
 	Notes

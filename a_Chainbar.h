@@ -15,14 +15,14 @@ public:
 	
 	int DPadLeftRight;
 
-	//Floats
-	float ArmPos;
-
 	//Bools
 	bool HatOpen = false;
 
 	int HatButton;
 
+	void Rotate(float SetPoint);
+	void Swing(float SetPoint);
+	void HatRelease();
 
 private:
 	Robot *robot;

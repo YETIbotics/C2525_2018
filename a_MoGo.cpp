@@ -11,21 +11,24 @@ void MoGo::init()
 
 }
 
+void MoGo::Move(float Speed)
+{
+	robot->MoGoSpeed = Speed;
+}
+
 void MoGo::Task()
 {
 	if (TriggerAggregate >= 100 || RL1 == -1)
 	{
-		speed = 400;
+		Move(400);
 	}
 	else if (TriggerAggregate <= -100 || RL1 == 1)
 	{
-		speed = -400;
+		Move(-400);
 	}
 	else
 	{
-		speed = 0;
+		Move(0);
 	}
-
-	robot->MoGoSpeed = speed;
 
 }

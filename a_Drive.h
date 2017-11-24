@@ -21,6 +21,9 @@ public:
 
 	int TriggerAggregate;
 
+	void DriveLeft(float Speed);
+	void DriveRight(float Speed);
+
 private:
 	Robot *robot;
 

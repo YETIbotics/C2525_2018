@@ -23,6 +23,9 @@ public:
 	//Bools
 	bool HatOpen = false;
 
+	void Rotate(int SetPoint);
+	void Lift(float Speed);
+
 
 private:
 	Robot *robot;
