@@ -29,7 +29,7 @@ void Chainbar::LeftPressed()
 		else
 		{
 			ArmPos = ChainbarLeftGrab;
-			CBTimer = 400;
+			CBTimer = 25;
 			CBMove = true;
 		}
 	}
@@ -54,14 +54,37 @@ void Chainbar::RightPressed()
 		else
 		{
 			ArmPos = ChainbarRightGrab;
-			CBTimer = 400;
+			CBTimer = 25;
 			CBMove = true;
 		}
 	}
 }
 
+void Chainbar::UpPressed()
+{
+	/*Grab from front*/
+}
+
+void Chainbar::DownPressed()
+{
+	CBState = 4;
+	ArmPos = ChainbarStandby;
+}
+
 void Chainbar::Task()
 {
+	//CBState 0 = Neutral, 1 = LeftStandby, 2 = RightStandby, 3 = FrontStandby, 4 = Standby
+
+	if (DPadLeftRight == 1)
+		RightPressed();
+	if (DPadLeftRight == -1)
+		LeftPressed();
+	if (DPadLeftRight == 2)
+		UpPressed();
+	if (DPadLeftRight == -2)
+		DownPressed();
+
+
 	if (CBTimer <= 0)
 	{
 		CBTimer = 0;
@@ -73,13 +96,22 @@ void Chainbar::Task()
 		}
 	}
 
-	if (DPadLeftRight == 1)
-		RightPressed();
-	if (DPadLeftRight == -1)
-		LeftPressed();
+	
 
+	
 	if (HatButton == 1)
-		robot->HatsOpen = !robot->HatsOpen;
+		robot->OpenHats();
 
 	robot->ChainbarX = ArmPos;
+	Serial.print("CBState: ");
+	Serial.println(CBState);
+	Serial.print("Controller: ");
+	Serial.println(DPadLeftRight);
+	Serial.print("CBTimer: ");
+	Serial.println(CBTimer);
+	Serial.print("CBMove");
+	Serial.println(CBMove);
+
+
+	CBTimer--;
 }

@@ -1,5 +1,5 @@
-#ifndef Drive_h
-#define Drive_h
+#ifndef Chainbar_h
+#define Chainbar_h
 
 #include <Arduino.h>
 #include "a_Robot.h"
@@ -30,9 +30,9 @@ private:
 	//Set Points
 
 	int ChainbarLeftStandby = 3460;
-	int ChainbarLeftGrab = 2000;
+	int ChainbarLeftGrab = 2500;
 	int ChainbarRightStandby = 8250;
-	int ChainbarRightGrab = 9400;
+	int ChainbarRightGrab = 9000;
 	int ChainbarCenter = 5770;
 	int ChainbarStandby = 7000;
 
@@ -45,6 +45,8 @@ private:
 
 	void RightPressed();
 	void LeftPressed();
+	void UpPressed();
+	void DownPressed();
 
 
 };

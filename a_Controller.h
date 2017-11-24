@@ -25,10 +25,15 @@ public:
 	int StartButton;
 
 	int DPadLeftRight;
+	int DPadLeftRightClick;
 	int APress;
 	int YPress;
 	int BPress;
 	int XPress;
+	int AClick;
+	int BClick;
+	int XClick;
+	int YClick;
 
 
 private:

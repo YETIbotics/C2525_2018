@@ -1,8 +1,11 @@
 
 #include "a_Robot.h"
-
 // Constructors ////////////////////////////////////////////////////////////////
 
+
+#define maestroSerial Serial1
+
+MiniMaestro maestro(maestroSerial);
 
 Robot::Robot()
 
@@ -17,11 +20,12 @@ Robot::Robot()
 
 void Robot::init() 
 {
+	
 	maestroSerial.begin(9600);
 
 
-	maestro.setAcceleration(0, 10);
-	maestro.setSpeed(0, 10);
+	maestro.setAcceleration(0, 0);
+	//maestro.setSpeed(0, 10);
 
 	maestro.setAcceleration(1, 10);
 	maestro.setSpeed(1, 10);
@@ -33,13 +37,12 @@ void Robot::init()
 	maestro.setTarget(0, ChainbarX);
 	maestro.setTarget(2, LiftY);
 
-	delay(2000);
 
 	maestro.setSpeed(0, 0);
 	maestro.setSpeed(1, 0);
 	maestro.setSpeed(2, 0);
 
-
+	
 }
 
 void Robot::TaskUSB()
@@ -47,15 +50,20 @@ void Robot::TaskUSB()
 	Usb.Task();
 }
 
+void Robot::OpenHats()
+{
+	
+}
+
 void Robot::Read() 
 {
-
+	ChainbarHat = servoMax * 3 / 4;
+	LiftHats = servoMax * 3 / 4;
+	HatTimer = 50;
 }
 
 void Robot::Write() 
 {
-
-
 	//DriveRightSpeed
 	if (DriveRightSpeed < -400)
 		DriveRightSpeed = -400;
@@ -83,7 +91,7 @@ void Robot::Write()
 
 	if (SecondLiftSpeed < -400)
 		SecondLiftSpeed = -400;
-	if (SecondLiftSpeed < 400)
+	if (SecondLiftSpeed > 400)
 		SecondLiftSpeed = 400;
 
 	SecondLiftSpeed = map(SecondLiftSpeed, -400, 400, -255, 255);
@@ -92,7 +100,7 @@ void Robot::Write()
 
 	if (MoGoSpeed < -400)
 		MoGoSpeed = -400;
-	if (MoGoSpeed < 400)
+	if (MoGoSpeed > 400)
 		MoGoSpeed = 400;
 
 	MoGoSpeed = map(MoGoSpeed, -400, 400, -255, 255);
@@ -100,17 +108,14 @@ void Robot::Write()
 	mc.setMotorSpeed(0, MoGoSpeed);
 
 
-	if (HatsOpen)
+	if (HatTimer < 0)
 	{
-		ChainbarHat = servoMax * 3 / 4;
-		LiftHats = servoMax * 3 / 4;
-	}
-	else
-	{
+		HatTimer = 0;
 		ChainbarHat = servoMin;
 		LiftHats = servoMin;
 	}
-
+	
+	HatTimer--;
 
 	maestro.setTarget(1, ChainbarY);
 	maestro.setTarget(0, ChainbarX);
@@ -118,7 +123,6 @@ void Robot::Write()
 
 	maestro.setTarget(3, ChainbarHat);
 	maestro.setTarget(4, LiftHats);
-
 
 	
 }

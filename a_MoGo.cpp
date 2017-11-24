@@ -13,13 +13,13 @@ void MoGo::init()
 
 void MoGo::Task()
 {
-	if (DPad == -2 || A == 1)
+	if (TriggerAggregate >= 100 || RL1 == -1)
 	{
-		speed = -255;
+		speed = 400;
 	}
-	else if (B == 1)
+	else if (TriggerAggregate <= -100 || RL1 == 1)
 	{
-		speed = 255;
+		speed = -400;
 	}
 	else
 	{

@@ -8,17 +8,21 @@ SecondLift::SecondLift(Robot *p)
 }
 void SecondLift::init()
 {
-
+	LiftLimit = 0.5;
 }
-
 
 void SecondLift::Task()
 {
 
-	if (TriggerAggregate != 0)
-		robot->SecondLiftSpeed = TriggerAggregate;
-	else
-		robot->SecondLiftSpeed = 0;
+	if (A)
+		robot->SecondLiftSpeed = 400;
+	if (B)
+		robot->SecondLiftSpeed = -400 * LiftLimit;
+
+	if (LR1 == 1)
+		robot->LiftY = LiftSetPointMoGo;
+	else if (LR1 == -1)
+		robot->LiftY = LiftSetPointReceiver;
+	
 }
 
-}

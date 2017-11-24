@@ -6,21 +6,24 @@
 #include "a_Chainbar.h"
 #include "a_MoGo.h"
 
-Robot Robot;
-Controller Controller(&Robot.Usb);
-Drive Drive(&Robot);
-SecondLift SecondLift(&Robot);
-Chainbar Chainbar(&Robot);
-MoGo MoGo(&Robot);
+Robot robot;
+Controller controller(&robot.Usb);
+Drive drive(&robot);
+SecondLift secondLift(&robot);
+Chainbar chainbar(&robot);
+MoGo moGo(&robot);
 
 SimpleTimer timer;
 
 void setup()
 {
 
-	Robot.init();
-	Drive.init();
-	SecondLift.init();
+	Serial.begin(115200);
+	robot.init();
+	drive.init();
+	secondLift.init();
+	moGo.init();
+	chainbar.init();
 
 	timer.setInterval(1, taskController);
 
@@ -35,43 +38,42 @@ void loop()
 
 void taskController()
 {
-	Robot.TaskUSB();
+	robot.TaskUSB();
 }
 
 
 void runRobot()
 {
-	Robot.Read();
-
-	Controller.Task();
-
+	robot.Read();
 	MapRobot();
 
-	Drive.Task();
-	SecondLift.Task();
+	drive.Task();
+	secondLift.Task();
+	moGo.Task();
+	chainbar.Task();
 
-	Robot.Write();
+	controller.Task();
+
+	robot.Write();
 
 }
 
 void MapRobot()
 {
-	Drive.LeftControllerSpeedY = Controller.LeftJoystickY;
-	Drive.LeftControllerSpeedX = Controller.LeftJoystickX;
-	Drive.RightControllerSpeedY = Controller.RightJoystickY;
-	Drive.RightControllerSpeedX = Controller.RightJoystickX;
-	Drive.DPad = Controller.DPadLeftRight;
+	drive.LeftControllerSpeedY = controller.LeftJoystickY;
+	drive.LeftControllerSpeedX = controller.LeftJoystickX;
+	drive.RightControllerSpeedY = controller.RightJoystickY;
+	drive.RightControllerSpeedX = controller.RightJoystickX;
+	drive.TriggerAggregate = controller.TriggerAggregate;
 
-	MoGo.DPad = Controller.DPadLeftRight;
-	MoGo.A = Controller.APress;
-	MoGo.B = Controller.BPress;
+	moGo.TriggerAggregate = controller.TriggerAggregate;
+	moGo.RL1 = controller.LR2Aggregate;
+	
+	secondLift.HatOpen = controller.XClick;
+	secondLift.LR1 = controller.LR2Aggregate;
+	secondLift.A = controller.APress;
+	secondLift.B = controller.BPress;
 
-	SecondLift.TriggerAggregate = Controller.TriggerAggregate;
-	SecondLift.HatButton = Controller.XPress;
-
-	Chainbar.DPadLeftRight = Controller.DPadLeftRight;
-	Chainbar.HatButton = Controller.XPress;
-
-
-
+	chainbar.DPadLeftRight = controller.DPadLeftRightClick;
+	chainbar.HatButton = controller.XClick;
 }

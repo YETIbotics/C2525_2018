@@ -27,10 +27,15 @@ void Drive::Task()
 		robot->DriveLeftSpeed = 0;
 	}
 
-	if (DPad == -2)
+	if (TriggerAggregate <= -100)
 	{
-		robot->DriveRightSpeed = 100;
-		robot->DriveRightSpeed = -100;
+		robot->DriveRightSpeed = map(-100, 0, -255, 0, -400);
+		robot->DriveLeftSpeed = map(-100, 0, -255, 0, -400);
+	}
+	else if (TriggerAggregate >= 100)
+	{
+		robot->DriveRightSpeed = map(100, 0, 255, 0, 400);
+		robot->DriveLeftSpeed = map(100, 0, 255, 0, 400);
 	}
 
 }

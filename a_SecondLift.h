@@ -1,5 +1,5 @@
-#ifndef Drive_h
-#define Drive_h
+#ifndef SecondLift_h
+#define SecondLift_h
 
 #include <Arduino.h>
 #include "a_Robot.h"
@@ -15,7 +15,10 @@ public:
 
 	//Floats
 	float LiftSpeed;
-	float TriggerAggregate;
+
+	int LR1;
+	int A;
+	int B;
 
 	//Bools
 	bool HatOpen = false;
@@ -24,6 +27,10 @@ public:
 private:
 	Robot *robot;
 
+	int LiftSetPointReceiver = 10424;
+	int LiftSetPointMoGo = 6000;
+
+	float LiftLimit;
 
 };
 

@@ -19,13 +19,12 @@ public:
 	float RightControllerSpeedY;
 	float RightControllerSpeedX;
 
-	int DPad;
+	int TriggerAggregate;
 
 private:
 	Robot *robot;
 
-	
+
 };
 
 #endif
-

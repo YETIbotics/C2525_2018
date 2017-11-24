@@ -1,5 +1,5 @@
-#ifndef Drive_h
-#define Drive_h
+#ifndef MoGo_h
+#define MoGo_h
 
 #include <Arduino.h>
 #include "a_Robot.h"
@@ -13,11 +13,11 @@ public:
 	void Task();
 	void init();
 
-	float Speed = 0;
+	float speed = 0;
 
-	int DPad;
-	int A;
-	int B;
+	int TriggerAggregate;
+	int RL1;
+
 private:
 	Robot *robot;
 

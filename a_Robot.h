@@ -6,7 +6,6 @@
 #include "PololuMaestro.h"
 #include "MDD10A.h"
 
-#define maestroSerial Serial1
 
 class Robot
 {
@@ -22,7 +21,6 @@ public:
 	void ServoInit();
 
 
-	MiniMaestro maestro(maestroSerial);
 
 	//Readable/Writeable Items
 
@@ -40,8 +38,8 @@ public:
 
 	float MoGoSpeed;
 
-	bool HatsOpen = false;
-	
+	void OpenHats();
+
 	USB Usb;
 
 
@@ -55,6 +53,8 @@ private:
 
 	float prevDriveRightSpeed;
 	float prevDriveLeftSpeed;
+
+	int HatTimer = 0;
 
 };
 

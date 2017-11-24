@@ -21,6 +21,8 @@ Controller::Controller(USB *p)
 	DPadLeftRight = 0;
 	APress = 0;
 	YPress = 0;
+	XPress = 0;
+	BPress = 0;
 	StartButton = 0;
 }
 
@@ -37,7 +39,12 @@ void Controller::Task()
 	BPress = 0;
 	XPress = 0;
 	YPress = 0;
+	AClick = 0;
+	BClick = 0;
+	XClick = 0;
+	YClick = 0;
 	DPadLeftRight = 0;
+	DPadLeftRightClick = 0;
 	StartButton = 0;
 
 	//This is where you update controller items.
@@ -116,9 +123,9 @@ void Controller::Task()
 					BPress = 1;
 				}
 
-				if (Xbox.getButtonPress(X, i))
+				if (Xbox.getButtonClick(X, i))
 				{
-					XPress = 1;
+					XClick = 1;
 				}
 
 				if (Xbox.getButtonClick(START, i))
@@ -127,7 +134,7 @@ void Controller::Task()
 				}
 
 
-				if (Xbox.getButtonClick(LEFT, i))
+				if (Xbox.getButtonPress(LEFT, i))
 				{
 					DPadLeftRight = -1;
 				}
@@ -135,13 +142,30 @@ void Controller::Task()
 				{
 					DPadLeftRight = 1;
 				}
-				else if (Xbox.getButtonClick(UP, i))
+				else if (Xbox.getButtonPress(UP, i))
 				{
 					DPadLeftRight = 2;
 				}
 				else if (Xbox.getButtonPress(DOWN, i))
 				{
 					DPadLeftRight = -2;
+				}
+
+				if (Xbox.getButtonClick(LEFT, i))
+				{
+					DPadLeftRightClick = -1;
+				}
+				else if (Xbox.getButtonClick(RIGHT, i))
+				{
+					DPadLeftRightClick = 1;
+				}
+				else if (Xbox.getButtonClick(UP, i))
+				{
+					DPadLeftRightClick = 2;
+				}
+				else if (Xbox.getButtonClick(DOWN, i))
+				{
+					DPadLeftRightClick = -2;
 				}
 
 
