@@ -60,10 +60,13 @@ Commands
 
 MoGo-
 	Extend()
-		MogGo.Move(255)
+		MoGo.Move(255)
 
 	Retract()
-		MogGo.Move(-255)
+		MoGo.Move(-255)
+
+	Stop()
+		MoGo.Move(0)
 
 	FullyExtend()
 		if (!LimitSwitchOut)

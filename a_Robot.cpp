@@ -2,7 +2,6 @@
 #include "a_Robot.h"
 // Constructors ////////////////////////////////////////////////////////////////
 
-
 #define maestroSerial Serial1
 
 MiniMaestro maestro(maestroSerial);
@@ -30,8 +29,8 @@ void Robot::init()
 	maestro.setAcceleration(1, 10);
 	maestro.setSpeed(1, 10);
 
-	maestro.setAcceleration(2, 10);
-	maestro.setSpeed(2, 10);
+	maestro.setAcceleration(2, 20);
+	//maestro.setSpeed(2, 10);
 
 	maestro.setTarget(1, ChainbarY);
 	maestro.setTarget(0, ChainbarX);
@@ -54,7 +53,7 @@ void Robot::OpenHats()
 {
 	ChainbarHat = servoMax * 3 / 4;
 	LiftHats = servoMax * 3 / 4;
-	HatTimer = 50;
+	HatTimer = millis();
 }
 
 void Robot::Read() 
@@ -96,7 +95,7 @@ void Robot::Write()
 
 	SecondLiftSpeed = map(SecondLiftSpeed, -400, 400, -255, 255);
 
-	mc.setMotorSpeed(1, SecondLiftSpeed);
+	mc.setMotorSpeed(2, SecondLiftSpeed);
 
 	if (MoGoSpeed < -400)
 		MoGoSpeed = -400;
@@ -105,18 +104,15 @@ void Robot::Write()
 
 	MoGoSpeed = map(MoGoSpeed, -400, 400, -255, 255);
 
-	mc.setMotorSpeed(0, MoGoSpeed);
+	mc.setMotorSpeed(3, MoGoSpeed);
 
 
-	if (HatTimer < 0)
+	if (millis() - HatTimer > 250)
 	{
-		HatTimer = 0;
 		ChainbarHat = servoMin;
 		LiftHats = servoMin;
 	}
 	
-	HatTimer--;
-
 	maestro.setTarget(1, ChainbarY);
 	maestro.setTarget(0, ChainbarX);
 	maestro.setTarget(2, LiftY);
@@ -124,6 +120,10 @@ void Robot::Write()
 	maestro.setTarget(3, ChainbarHat);
 	maestro.setTarget(4, LiftHats);
 
-	
+	maestro.setTarget(5, MoGoLiftSpeed);
+
+	Serial.print(" LiftY: ");
+	Serial.print(LiftY);
+
 }
 

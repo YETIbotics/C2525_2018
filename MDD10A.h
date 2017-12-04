@@ -19,9 +19,9 @@ public:
 
 	//Not in use
 	const int _mc0_dir0 = 22;
-	const int _mc0_pwm0 = 2;
+	//const int _mc0_pwm0 = 2;
 	const int _mc0_dir1 = 24;
-	const int _mc0_pwm1 = 3;
+	//const int _mc0_pwm1 = 3;
 
 	//MC3
 	const int _mc1_dir0 = 40;

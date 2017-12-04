@@ -24,8 +24,8 @@ public:
 	void Swing(float SetPoint);
 	void HatRelease();
 
-private:
-	Robot *robot;
+	int CBState = 5;
+
 
 	//Set Points
 
@@ -34,19 +34,29 @@ private:
 	int ChainbarRightStandby = 8250;
 	int ChainbarRightGrab = 9000;
 	int ChainbarCenter = 5770;
-	int ChainbarStandby = 7000;
-
-	int CBState = 0;
-
-	int CBTimer = 0;
-
-	bool CBMove = false;
-
+	int ChainbarStandby = 4470;
 
 	void RightPressed();
 	void LeftPressed();
 	void UpPressed();
 	void DownPressed();
+
+	int YForward = 700 * 4;
+	int YSide = 1340 * 4;
+
+
+
+private:
+	Robot *robot;
+
+
+
+
+	int32_t CBTimerGrab = 0;
+	int32_t CBTimerRelease = 0;
+
+	bool CBMove = false;
+
 
 
 };

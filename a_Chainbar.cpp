@@ -30,7 +30,7 @@ void Chainbar::LeftPressed()
 {
 	if (!CBMove)
 	{
-		if (CBState == 0 || CBState == 4 || CBState == 2)
+		if (CBState == 0 || CBState == 4 || CBState == 2 || CBState == 5)
 		{
 			Swing(ChainbarLeftStandby);
 			CBState = 1;
@@ -44,7 +44,7 @@ void Chainbar::LeftPressed()
 		else
 		{
 			Swing(ChainbarLeftGrab);
-			CBTimer = 25;
+			CBTimerGrab = millis();
 			CBMove = true;
 		}
 	}
@@ -56,7 +56,7 @@ void Chainbar::RightPressed()
 
 	if (!CBMove)
 	{
-		if (CBState == 0 || CBState == 4 || CBState == 1)
+		if (CBState == 0 || CBState == 4 || CBState == 1 || CBState == 5)
 		{
 			Swing(ChainbarRightStandby);
 			CBState = 2;
@@ -69,7 +69,7 @@ void Chainbar::RightPressed()
 		else
 		{
 			Swing(ChainbarRightGrab);
-			CBTimer = 25;
+			CBTimerGrab = millis();
 			CBMove = true;
 		}
 	}
@@ -84,13 +84,13 @@ void Chainbar::UpPressed()
 
 void Chainbar::DownPressed()
 {
-	CBState = 4;
+	CBState = 5;
 	Swing(ChainbarStandby);
 }
 
 void Chainbar::Task()
 {
-	//CBState 0 = Neutral, 1 = LeftStandby, 2 = RightStandby, 3 = FrontStandby, 4 = Standby
+	//CBState 0 = Neutral, 1 = LeftStandby, 2 = RightStandby, 3 = FrontStandby, 4 = StandbyStage, 5 = Standby
 
 	if (DPadLeftRight == 1)
 		RightPressed();
@@ -102,23 +102,33 @@ void Chainbar::Task()
 		DownPressed();
 
 
-	if (CBTimer <= 0)
+	if (millis() - CBTimerGrab > 500 && millis() > 1000)
 	{
-		CBTimer = 0;
+		CBTimerGrab = 0;
 		if (CBMove)
 		{
 			CBState = 0;
 			CBMove = false;
 			Swing(ChainbarCenter);
+			CBTimerRelease = millis();
 		}
 	}
 
+	if (millis() - CBTimerRelease > 1000 && millis() - CBTimerRelease < 1200 && millis() > 1300)
+	{
+		HatRelease();
+	}
+	else if (millis() - CBTimerRelease > 1200 && millis() - CBTimerRelease < 1500 && millis() > 1600)
+	{
+		CBState = 4;
+		Swing(ChainbarStandby);
+	}
 	
-
+	
 	
 	if (HatButton == 1)
 		HatRelease();
-
+	/*
 	Serial.print("CBState: ");
 	Serial.println(CBState);
 	Serial.print("Controller: ");
@@ -127,7 +137,7 @@ void Chainbar::Task()
 	Serial.println(CBTimer);
 	Serial.print("CBMove");
 	Serial.println(CBMove);
+	*/
 
 
-	CBTimer--;
 }

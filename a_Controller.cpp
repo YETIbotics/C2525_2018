@@ -46,6 +46,8 @@ void Controller::Task()
 	DPadLeftRight = 0;
 	DPadLeftRightClick = 0;
 	StartButton = 0;
+	XBoxClick = 0;
+	BackClick = 0;
 
 	//This is where you update controller items.
 	if (Xbox.XboxReceiverConnected)
@@ -128,6 +130,11 @@ void Controller::Task()
 					XClick = 1;
 				}
 
+				if (Xbox.getButtonClick(Y, i))
+				{
+					YClick = 1;
+				}
+
 				if (Xbox.getButtonClick(START, i))
 				{
 					StartButton = 1;
@@ -168,6 +175,21 @@ void Controller::Task()
 					DPadLeftRightClick = -2;
 				}
 
+				if (Xbox.getButtonClick(XBOX, i))
+				{
+					XBoxClick = 1;
+				}
+
+				if (Xbox.getButtonClick(BACK, i))
+				{
+					BackClick = 1;
+				}
+
+				if (analogRead(A6) >= 550)
+					Xbox.setRumbleOn(255, 255);
+				else
+					Xbox.setRumbleOff();
+				
 
 			}
 		}

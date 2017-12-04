@@ -21,12 +21,12 @@ void MDD10A::setMotorSpeed(int controller, int speed) {
 	switch (controller) {
 	case 0:
 		digitalWrite(_mc0_dir0, dir);
-		analogWrite(_mc0_pwm0, speed);
+		//analogWrite(_mc0_pwm0, speed);
 		break;
 
 	case 1:
 		digitalWrite(_mc0_dir1, dir);
-		analogWrite(_mc0_pwm1, speed);
+		//analogWrite(_mc0_pwm1, speed);
 		break;
 
 	case 2:

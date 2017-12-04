@@ -17,9 +17,15 @@ public:
 	int RL1;
 
 	void Move(float Speed);
+	void Lift(float Speed);
 
 private:
 	Robot *robot;
+
+	int MoGoLiftMin = 304 * 4;
+	int MoGoLiftMax = 7500;
+
+	int MoGoLiftPos = 300 * 4;
 
 };
 

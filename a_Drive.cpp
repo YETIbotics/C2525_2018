@@ -1,5 +1,5 @@
 #include "a_Drive.h"
-
+#include "a_SecondLift.h"h
 // Constructors ////////////////////////////////////////////////////////////////
 
 Drive::Drive(Robot *p)
@@ -8,6 +8,15 @@ Drive::Drive(Robot *p)
 }
 void Drive::init()
 {
+	
+	DriveRightEnc.init(DriveRightEncInt, DriveRightEncDig);
+	
+	drivePID.init(&driveCurPos, &drivePIDOut, &driveSetPoint, driveKP, driveKI, driveKD, DIRECT);
+	driveCurPos = DriveRightEnc.read();
+	drivePID.SetMode(MANUAL);
+	drivePIDOut = 0;
+	drivePID.SetOutputLimits(-400, 400);
+	driveSetPoint = 0;
 
 }
 
@@ -25,6 +34,15 @@ void Drive::DriveRight(float Speed)
 void Drive::Task()
 {
 
+	if (DrivePIDEnabled)
+		drivePID.SetMode(AUTOMATIC);
+	else
+		drivePID.SetMode(MANUAL);
+
+	driveCurPos = DriveRightEnc.read()*-1;
+
+	drivePID.Compute();
+
 
 	if (LeftControllerSpeedY != 0 || RightControllerSpeedY != 0 || LeftControllerSpeedX != 0 || RightControllerSpeedX != 0)
 	{
@@ -37,15 +55,16 @@ void Drive::Task()
 		DriveLeft(0);
 	}
 
-	if (TriggerAggregate <= -100)
+	if (DrivePIDEnabled)
 	{
-		DriveRight(map(-100, 0, -255, 0, -400));
-		DriveLeft(map(-100, 0, -255, 0, -400));
+		DriveRight(drivePIDOut);
+		DriveLeft(drivePIDOut);
 	}
-	else if (TriggerAggregate >= 100)
-	{
-		DriveRight(map(100, 0, 255, 0, 400));
-		DriveLeft(map(100, 0, 255, 0, 400));
-	}
+		
+	Serial.print(" DriveRightEnc: ");
+	Serial.print(DriveRightEnc.read());
+
+	Serial.print(" DriveSetPoint: ");
+	Serial.print(driveSetPoint);
 
 }

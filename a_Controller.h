@@ -34,6 +34,8 @@ public:
 	int BClick;
 	int XClick;
 	int YClick;
+	int BackClick;
+	int XBoxClick;
 
 
 private:

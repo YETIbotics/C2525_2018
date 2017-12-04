@@ -37,8 +37,10 @@ public:
 	float LiftHats;
 
 	float MoGoSpeed;
+	float MoGoLiftSpeed;
 
 	void OpenHats();
+
 
 	USB Usb;
 
@@ -54,7 +56,7 @@ private:
 	float prevDriveRightSpeed;
 	float prevDriveLeftSpeed;
 
-	int HatTimer = 0;
+	int32_t HatTimer = 0;
 
 };
 
