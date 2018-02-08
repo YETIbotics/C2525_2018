@@ -128,18 +128,18 @@ void SecondLift::Task()
 		YPos = 1;
 	}
 
-	if (millis() - MoveDownTimer > 2400 && millis() - MoveDownTimer < 2500)
+	if (millis() - MoveDownTimer > 3400 && millis() - MoveDownTimer < 3500)
 	{
 		liftSetPoint = LiftMinMoGo;
 		liftPID.SetTunings(0.7, 0, 0);
 	}
 
-	if (millis() - MoveDownTimer > 3100 && millis() - MoveDownTimer < 3500)
+	if (millis() - MoveDownTimer > 4100 && millis() - MoveDownTimer < 4500)
 	{
 		robot->OpenHats();
 	}
 
-	if (millis() - MoveDownTimer > 3400 && millis() - MoveDownTimer < 4400)
+	if (millis() - MoveDownTimer > 4400 && millis() - MoveDownTimer < 5400)
 	{
 		liftSetPoint = LiftMax;
 	}

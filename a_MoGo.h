@@ -23,7 +23,7 @@ private:
 	Robot *robot;
 
 	int MoGoLiftMin = 304 * 4;
-	int MoGoLiftMax = 7500;
+	int MoGoLiftMax = 7600;
 
 	int MoGoLiftPos = 300 * 4;
 

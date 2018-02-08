@@ -32,9 +32,9 @@ void Robot::init()
 	maestro.setAcceleration(2, 20);
 	//maestro.setSpeed(2, 10);
 
-	maestro.setTarget(1, ChainbarY);
-	maestro.setTarget(0, ChainbarX);
-	maestro.setTarget(2, LiftY);
+	//maestro.setTarget(1, ChainbarY);
+	//maestro.setTarget(0, ChainbarX);
+	//maestro.setTarget(2, LiftY);
 
 
 	maestro.setSpeed(0, 0);

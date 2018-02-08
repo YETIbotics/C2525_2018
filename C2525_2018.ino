@@ -5,8 +5,7 @@
 #include "a_SecondLift.h"
 #include "a_Chainbar.h"
 #include "a_MoGo.h"
-#include "CV.h"
-#include "Adafruit_BNO055.h"
+//#include "Adafruit_BNO055.h"
 #include "Autonomous.h"
 #include <Wire.h>
 #define LightSensorPin A6
@@ -20,10 +19,11 @@ Chainbar chainbar(&robot);
 MoGo moGo(&robot);
 
 SimpleTimer timer;
-CV cv;
 
-Adafruit_BNO055 gyro = Adafruit_BNO055(55);
-Autonomous autonomous(&robot, &secondLift, &drive);
+
+//Adafruit_BNO055 gyro = Adafruit_BNO055(55);
+Autonomous autonomous(&robot, &secondLift, &drive, &moGo, &chainbar);
+
 
 void setup()
 {
@@ -33,17 +33,17 @@ void setup()
 	while (!Serial); // Wait for serial port to connect - used on Leonardo, Teensy and other boards with built-in USB CDC serial connection
 
 					 //gyroLift in INO 
-	if (!gyro.begin())
-	{
+//	if (!gyro.begin())
+	//{
 		/* There was a problem detecting the BNO055 ... check your connections */
-		Serial.print("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
-		while (1);
-	}
+//		Serial.print("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
+	
+//	}
 	
 
-	delay(1000);
+	//delay(1000);
 
-	gyro.setExtCrystalUse(true);
+	//gyro.setExtCrystalUse(true);
 
 	robot.init();
 	drive.init();
@@ -59,14 +59,14 @@ void setup()
 
 void loop()
 {
-	timer.run();
 	robot.TaskUSB();
+	timer.run();
 }
 
 
 void runRobot()
 {
-	String readString, funcName;
+	/*String readString, funcName;
 	int funcVal;
 
 	while (Serial.available()) {
@@ -98,23 +98,23 @@ void runRobot()
 	else if (funcName == "LT")
 	{
 		robot.LiftY = funcVal;
-	}
+	}*/
 	
 
 	/* Get a new sensor event */
-	sensors_event_t event;
-	gyro.getEvent(&event);
+	//sensors_event_t event;
+	//gyro.getEvent(&event);
 
 	/* Display the floating point data */
 
-	Serial.print(" Gyro X: ");
-	Serial.print(event.orientation.x);
+	//Serial.print(" Gyro X: ");
+	//Serial.print(event.orientation.x);
 
-	Serial.print(" Gyro Y: ");
-	Serial.print(event.orientation.y);
+	//Serial.print(" Gyro Y: ");
+	//Serial.print(event.orientation.y);
 
-	Serial.print(" Gyro Z: ");
-	Serial.print(event.orientation.z);
+	//Serial.print(" Gyro Z: ");
+	//Serial.print(event.orientation.z);
 
 	robot.Read();
 	MapRobot();
@@ -126,7 +126,8 @@ void runRobot()
 
 	controller.Task();
 
-	robot.Write();
+	if(controller.XBoxClick != -1)
+		robot.Write();
 	//cv.Task();
 
 	autonomous.Task();
@@ -156,7 +157,7 @@ void MapRobot()
 	chainbar.DPadLeftRight = controller.DPadLeftRightClick;
 	chainbar.HatButton = controller.YClick;
 
-	if (controller.XBoxClick)
+	if (controller.XBoxClick == 1)
 	{
 		autonomous.StartAutonomous(1, millis());
 		//drive.DrivePIDEnabled = !drive.DrivePIDEnabled;

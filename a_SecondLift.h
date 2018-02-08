@@ -54,7 +54,7 @@ private:
 
 	int LiftSetPointReceiver = 10424;
 	int LiftSetPointMoGo = 6250;
-	int LiftSetPointStat = 6250;
+	int LiftSetPointStat = 9000;
 
 	int LiftEncoderInt = 2;
 	int LiftEncoderDig = 44;
